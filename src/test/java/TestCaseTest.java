@@ -12,6 +12,8 @@ public class TestCaseTest extends BaseTest {
     private static final String NAME_TEST_SUITE = "zzzTestSuiteTest";
     private static final String NAME_TEST_CASE = "TestcaseTest";
 
+    private static final By PATH_TO_FOLDER_TEST_SUITE = By.xpath(String.format("//span[contains(text(),'%s')]", NAME_TEST_SUITE));
+
     private void switchProject(){
         getWebDriver().switchTo().frame(getWebDriver().findElement(By.name("titlebar")));
 
@@ -63,7 +65,7 @@ public class TestCaseTest extends BaseTest {
 
         switchToTreeframe();
 
-        Assert.assertTrue(getWebDriver().findElement(By.xpath("//span[contains(text(),'zzzTestSuiteTest')]")).getText().contains(NAME_TEST_SUITE));
+        Assert.assertTrue(getWebDriver().findElement(PATH_TO_FOLDER_TEST_SUITE).getText().contains(NAME_TEST_SUITE));
     }
 
     @Test(dependsOnMethods = "createdTestSuiteTest")
@@ -74,7 +76,7 @@ public class TestCaseTest extends BaseTest {
 
         switchToTreeframe();
 
-        scrollAndClick(getWebDriver(), getWebDriver().findElement(By.xpath("//span[contains(text(),'zzzTestSuiteTest')]")));
+        scrollAndClick(getWebDriver(), getWebDriver().findElement(PATH_TO_FOLDER_TEST_SUITE));
 
         createNewTestCase();
 
@@ -84,6 +86,6 @@ public class TestCaseTest extends BaseTest {
         switchToTreeframe();
         getWebDriver().findElement(By.cssSelector(".x-tree-elbow-end-plus")).click();
 
-        Assert.assertTrue(getWebDriver().findElement(By.xpath("//span[contains(text(),'TestcaseTest')]")).getText().contains(NAME_TEST_CASE));
+        Assert.assertTrue(getWebDriver().findElement(By.xpath(String.format("//span[contains(text(),'%s')]", NAME_TEST_CASE))).getText().contains(NAME_TEST_CASE));
     }
 }
